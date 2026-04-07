@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, [Name]!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-pink: #f8bbd0;
+        --soft-pink: #fce4ec;
+        --accent-color: #d81b60;
+        --text-color: #4a4a4a;
+        --glass-bg: rgba(255, 255, 255, 0.7);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background: linear-gradient(
+          135deg,
+          var(--soft-pink) 0%,
+          #ffffff 50%,
+          var(--primary-pink) 100%
+        );
+        background-attachment: fixed;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Hero Section */
+      .section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        padding: 3rem;
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      h1 {
+        font-family: "Great Vibes", cursive;
+        font-size: 4rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .video-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 2rem auto;
+        border-radius: 20px;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+        background: #eee; /* Placeholder bg */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .intro-text {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        font-weight: 300;
+      }
+
+      /* Cake CSS */
+      .cake-container {
+        margin: 2rem 0;
+        position: relative;
+        height: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .cake-layer {
+        height: 40px;
+        border-radius: 10px 10px 0 0;
+        position: relative;
+      }
+      .cake-layer-top {
+        width: 115px;
+        background-color: #9e3a5e;
+        border-bottom: 4px solid #fb6f92;
+      }
+      .cake-layer-middle {
+        width: 120px;
+        background-color: #b12558;
+        border-bottom: 4px solid #fb6f92;
+      }
+      .cake-layer-bottom {
+        width: 125px;
+        background-color: #931a46;
+        border-bottom: 4px solid #fb6f92;
+      }
+
+      .candle {
+        width: 6px;
+        height: 25px;
+        background: #fff;
+        position: relative;
+        margin-bottom: -2px;
+      }
+
+      .flame {
+        width: 12px;
+        height: 18px;
+        background: #ffca28;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        animation: flicker 0.6s infinite alternate;
+        cursor: pointer;
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+
+      .flame.blown-out {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-50%) translateY(-10px) scale(0);
+      }
+
+      @keyframes flicker {
+        0% {
+          transform: translateX(-50%) scale(1);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateX(-52%) scale(1.1);
+          opacity: 1;
+          box-shadow: 0 0 10px #ffca28;
+        }
+      }
+
+      /* Interactive Elements */
+      .surprise-btn {
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        font-family: "Montserrat", sans-serif;
+        letter-spacing: 1px;
+      }
+
+      .surprise-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+      }
+
+      #typewriter {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        min-height: 2rem;
+        color: var(--accent-color);
+      }
+
+      /* Gallery Section */
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 900px;
+        width: 100%;
+      }
+
+      .media-card {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .media-card img,
+      .media-card video {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Reveal Animations */
+      .reveal-section {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1.5s ease-out;
+      }
+
+      .reveal-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .poem-container {
+        max-width: 600px;
+        font-family: "Playfair Display", serif;
+      }
+
+      .poem-line {
+        display: block;
+        margin: 1.5rem 0;
+        font-size: 1.4rem;
+        font-style: italic;
+      }
+
+      footer {
+        padding: 2rem;
+        font-size: 0.8rem;
+        opacity: 0.6;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 600px) {
+        .section {
+          padding: 1rem;
+        }
+        h1 {
+          font-size: 2.2rem;
+        }
+        .card {
+          padding: 1.5rem 1rem;
+          border-radius: 20px;
+        }
+        .intro-text {
+          font-size: 1rem;
+        }
+        #typewriter {
+          font-size: 1.1rem;
+        }
+        .poem-line {
+          font-size: 1rem;
+          margin: 1rem 0;
+        }
+        .media-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+        }
+        .media-card {
+          padding: 0.5rem;
+        }
+        .media-card img,
+        .media-card video {
+          height: 160px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hidden Audio Placeholder -->
+    <audio id="bg-music">
+      <source
+        src="Dave-Raindance-feat-Tems-Vistanaij.com_.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+    <audio id="personal-recording">
+      <source src="your-voice-recording.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- First Section -->
+    <section class="section">
+      <div class="card">
+        <h1>Happy Birthday My Love</h1>
+
+        <p class="intro-text">
+          To the most amazing person I know. Today is all about you.Hope u enjoy
+          it to the fullest.
+        </p>
+
+        <div class="cake-container">
+          <div class="candle">
+            <div
+              class="flame"
+              title="Make a wish and blow!"
+              onclick="this.classList.add('blown-out')"
+            ></div>
+          </div>
+          <div class="cake-layer cake-layer-top"></div>
+          <div class="cake-layer cake-layer-middle"></div>
+          <div class="cake-layer cake-layer-bottom"></div>
+        </div>
+
+        <button class="surprise-btn" onclick="revealSurprise()">
+          Click me
+        </button>
+        <div id="typewriter"></div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section reveal-section">
+      <div class="media-grid">
+        <div class="card media-card">
+          <img src="pic 1.jpeg" alt="Special Memory 1" />
+        </div>
+        <div class="card media-card">
+          <video autoplay muted loop>
+            <source src="vid 1.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="card media-card">
+          <img src="pic 2.jpeg" alt="Special Memory 2" />
+        </div>
+        <div class="card media-card">
+          <video autoplay muted loop>
+            <source src="vid 2.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Second Section (Poem) -->
+    <section class="section reveal-section" id="poem">
+      <div class="poem-container">
+        <span class="poem-line"
+          >Today on your birthday, I just want to say,</span
+        >
+
+        <span class="poem-line"
+          >I wish you grow happier with every passing day.</span
+        >
+
+        <span class="poem-line"
+          >I wish you love, that is experienced by only a few.,</span
+        >
+
+        <span class="poem-line"
+          >I wish that all that you ever wished for, comes true.,</span
+        >
+
+        <span class="poem-line">
+          the seasons that change and the years as they fly,</span
+        >
+
+        <span class="poem-line">
+          the light of my life and the apple of eye.
+        </span>
+
+        <span class="poem-line">
+          will stand by your side through the dark and the day,</span
+        >
+
+        <span class="poem-line">
+          my love is a promise that won't fade away.
+        </span>
+
+        <span class="poem-line"
+          >a world full of shifts and of values that bend,</span
+        >
+
+        <span class="poem-line">
+          am yours as a partner, a lover, and friend.
+        </span>
+
+        <span class="poem-line">
+          will never depart, for my heart is your home,</span
+        >
+
+        <span class="poem-line">
+          no matter how far or how wide we may roam.
+        </span>
+
+        <span class="poem-line">Happy Birthday to you My Love.</span>
+
+        <div
+          style="
+            font-family: &quot;Great Vibes&quot;;
+            font-size: 2.5rem;
+            margin-top: 3rem;
+            color: var(--accent-color);
+          "
+        >
+          Forever Yours Brandon
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made with love for Ewurasi Daniella</p>
+    </footer>
+
+    <script>
+      // Typewriter Effect
+      const message = "I love you so much Daniella ❤️";
+      let i = 0;
+      const speed = 100;
+
+      function revealSurprise() {
+        // Play Music
+        const music = document.getElementById("bg-music");
+        const personalRec = document.getElementById("personal-recording");
+
+        music
+          .play()
+          .then(() => {
+            // After 50 seconds, stop the background music and play your recording
+            setTimeout(() => {
+              music.pause();
+              personalRec
+                .play()
+                .catch((err) =>
+                  console.log(
+                    "Personal recording play blocked or failed:",
+                    err,
+                  ),
+                );
+            }, 80000);
+          })
+          .catch((e) =>
+            console.log(
+              "Music play blocked by browser. This is normal until first interaction.",
+            ),
+          );
+
+        // Start Typewriter
+        if (i === 0) {
+          typeWriter();
+        }
+
+        // Disable button after click
+        document.querySelector(".surprise-btn").style.display = "none";
+      }
+
+      function typeWriter() {
+        if (i < message.length) {
+          document.getElementById("typewriter").innerHTML += message.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+
+      // Scroll Reveal Logic
+      const observerOptions = {
+        threshold: 0.2,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal-section").forEach((section) => {
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>
