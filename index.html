@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
       :root {
         --primary-pink: #f8bbd0;
@@ -278,8 +279,81 @@
         }
         .media-card img,
         .media-card video {
-          height: 160px;
+          height: 250px;
+          object-fit: cover;
+          width: 100%;
         }
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        margin: 15% auto;
+        padding: 3rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-content h2 {
+        font-family: "Great Vibes", cursive;
+        font-size: 2.5rem;
+        color: var(--accent-color);
+        margin-bottom: 2rem;
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .modal-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Montserrat", sans-serif;
+        letter-spacing: 1px;
+        transform-origin: center;
+      }
+
+      .yes-btn {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .yes-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+      }
+
+      .no-btn {
+        background: #666;
+        color: white;
+      }
+
+      .no-btn:hover {
+        transform: scale(1.05);
+        background: #555;
       }
     </style>
   </head>
@@ -332,7 +406,7 @@
           <img src="pic 1.jpeg" alt="Special Memory 1" />
         </div>
         <div class="card media-card">
-          <video autoplay muted loop>
+          <video autoplay muted loop playsinline>
             <source src="vid 1.mp4" type="video/mp4" />
           </video>
         </div>
@@ -340,7 +414,7 @@
           <img src="pic 2.jpeg" alt="Special Memory 2" />
         </div>
         <div class="card media-card">
-          <video autoplay muted loop>
+          <video autoplay muted loop playsinline>
             <source src="vid 2.mp4" type="video/mp4" />
           </video>
         </div>
@@ -417,6 +491,17 @@
       <p>Made with love for Ewurasi Daniella</p>
     </footer>
 
+    <!-- Proposal Modal -->
+    <div id="proposal-modal" class="modal">
+      <div class="modal-content">
+        <h2>Will you be my girlfriend?</h2>
+        <div class="modal-buttons">
+          <button id="yes-btn" class="modal-btn yes-btn">Yes! ❤️</button>
+          <button id="no-btn" class="modal-btn no-btn">No</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       // Typewriter Effect
       const message = "I love you so much Daniella ❤️";
@@ -424,6 +509,58 @@
       const speed = 100;
 
       function revealSurprise() {
+        // Show the proposal modal
+        document.getElementById("proposal-modal").style.display = "block";
+      }
+
+      function sendEmailNotification() {
+        // Initialize EmailJS
+        emailjs.init("E96b_NKj9eFqqhsSe"); // Replace with your EmailJS public key
+
+        // Send email
+        emailjs
+          .send("service_wphzv1j", "template_xwoylow", {
+            to_email: "aaronferguson209@gmail.com", // Replace with your email
+            subject: "She said YES! 🎉",
+            message:
+              "Daniella clicked YES on your proposal! She wants to be your girlfriend! ❤️",
+          })
+          .then(
+            function (response) {
+              console.log("Email sent successfully!", response);
+            },
+            function (error) {
+              console.log("Email failed to send:", error);
+            },
+          );
+      }
+
+      // Handle modal buttons
+      let noScale = 1;
+      document.getElementById("yes-btn").addEventListener("click", function () {
+        // Send email notification
+        sendEmailNotification();
+
+        // Hide modal
+        document.getElementById("proposal-modal").style.display = "none";
+
+        // Proceed with original surprise reveal
+        playMusicAndReveal();
+      });
+
+      document.getElementById("no-btn").addEventListener("click", function () {
+        // Make the no button smaller
+        noScale -= 0.2;
+        if (noScale <= 0) {
+          // Hide the button completely
+          this.style.display = "none";
+        } else {
+          // Scale it down
+          this.style.transform = `scale(${noScale})`;
+        }
+      });
+
+      function playMusicAndReveal() {
         // Play Music
         const music = document.getElementById("bg-music");
         const personalRec = document.getElementById("personal-recording");
