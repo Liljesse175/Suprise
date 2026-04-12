@@ -513,17 +513,17 @@
         document.getElementById("proposal-modal").style.display = "block";
       }
 
+      emailjs.init("E96b_NKj9eFqqhsSe");
       function sendEmailNotification() {
-        // Initialize EmailJS
-        emailjs.init("E96b_NKj9eFqqhsSe"); // Replace with your EmailJS public key
+        // Initialize EmailJS /
+        let messageText = "Daniella said YES to the proposal! 🎉";
 
         // Send email
         emailjs
           .send("service_wphzv1j", "template_xwoylow", {
-            to_email: "aaronferguson209@gmail.com", // Replace with your email
-            subject: "She said YES! 🎉",
-            message:
-              "Daniella clicked YES on your proposal! She wants to be your girlfriend! ❤️",
+            answer: "Yes",
+            message: messageText,
+            time: new Date().toLocaleString(),
           })
           .then(
             function (response) {
