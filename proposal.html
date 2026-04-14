@@ -117,11 +117,10 @@
   </head>
   <body>
     <div class="card">
+      <p>To the most beautiful and amazing person in my life,</p>
+
       <h1>Will you be my girlfriend?</h1>
-      <p>
-        I want to spend every birthday with you, laugh with you, and love you
-        for the rest of our lives. Please say yes.
-      </p>
+
       <div class="modal-buttons">
         <button class="modal-btn yes-btn" onclick="handleYesClick()">
           Yes! ❤️
@@ -142,6 +141,9 @@
       }
 
       function handleYesClick() {
+        console.log(
+          "Yes button clicked: redirecting to index.html and resuming surprise.",
+        );
         localStorage.setItem("playSurpriseOnReturn", "true");
         window.location.href = "index.html";
       }
