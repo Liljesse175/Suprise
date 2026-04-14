@@ -8,7 +8,6 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
       :root {
         --primary-pink: #f8bbd0;
@@ -284,77 +283,6 @@
           width: 100%;
         }
       }
-
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
-      }
-
-      .modal-content {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        margin: 15% auto;
-        padding: 3rem;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 30px;
-        width: 90%;
-        max-width: 500px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      .modal-content h2 {
-        font-family: "Great Vibes", cursive;
-        font-size: 2.5rem;
-        color: var(--accent-color);
-        margin-bottom: 2rem;
-      }
-
-      .modal-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-      }
-
-      .modal-btn {
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-family: "Montserrat", sans-serif;
-        letter-spacing: 1px;
-        transform-origin: center;
-      }
-
-      .yes-btn {
-        background: var(--accent-color);
-        color: white;
-      }
-
-      .yes-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
-      }
-
-      .no-btn {
-        background: #666;
-        color: white;
-      }
-
-      .no-btn:hover {
-        transform: scale(1.05);
-        background: #555;
-      }
     </style>
   </head>
   <body>
@@ -364,9 +292,6 @@
         src="Dave-Raindance-feat-Tems-Vistanaij.com_.mp3"
         type="audio/mpeg"
       />
-    </audio>
-    <audio id="personal-recording">
-      <source src="your-voice-recording.mp3" type="audio/mpeg" />
     </audio>
 
     <!-- First Section -->
@@ -398,6 +323,7 @@
         >
           Click me
         </button>
+        <div id="typewriter"></div>
       </div>
     </section>
 
@@ -494,63 +420,9 @@
     </footer>
 
     <script>
-      // Typewriter Effect
       const message = "I love you so much Daniella ❤️";
       let i = 0;
       const speed = 100;
-
-      // Navigate to the proposal page when the button is clicked
-      function revealSurprise() {
-        // Show the proposal modal
-        document.getElementById("proposal-modal").style.display = "block";
-      }
-
-      function sendEmailNotification() {
-        // Initialize EmailJS
-        emailjs.init("E96b_NKj9eFqqhsSe"); // Replace with your EmailJS public key
-
-        // Send email
-        emailjs
-          .send("service_wphzv1j", "template_xwoylow", {
-            to_email: "aaronferguson209@gmail.com", // Replace with your email
-            subject: "She said YES! 🎉",
-            message:
-              "Daniella clicked YES on your proposal! She wants to be your girlfriend! ❤️",
-          })
-          .then(
-            function (response) {
-              console.log("Email sent successfully!", response);
-            },
-            function (error) {
-              console.log("Email failed to send:", error);
-            },
-          );
-      }
-
-      // Handle modal buttons
-      let noScale = 1;
-      document.getElementById("yes-btn").addEventListener("click", function () {
-        // Send email notification
-        sendEmailNotification();
-
-        // Hide modal
-        document.getElementById("proposal-modal").style.display = "none";
-
-        // Proceed with original surprise reveal
-        playMusicAndReveal();
-      });
-
-      document.getElementById("no-btn").addEventListener("click", function () {
-        // Make the no button smaller
-        noScale -= 0.2;
-        if (noScale <= 0) {
-          // Hide the button completely
-          this.style.display = "none";
-        } else {
-          // Scale it down
-          this.style.transform = `scale(${noScale})`;
-        }
-      });
 
       function playMusicAndReveal() {
         const music = document.getElementById("bg-music");
@@ -572,11 +444,11 @@
       }
 
       function typeWriter() {
-        if (i < message.length) {
-          document.getElementById("typewriter").innerHTML += message.charAt(i);
-          i++;
-          setTimeout(typeWriter, speed);
-        }
+        const output = document.getElementById("typewriter");
+        if (!output || i >= message.length) return;
+        output.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
       }
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -586,7 +458,6 @@
         }
       });
 
-      // Scroll Reveal Logic
       const observerOptions = {
         threshold: 0.2,
       };
