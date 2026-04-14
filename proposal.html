@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Girlfriend?</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-pink: #f8bbd0;
+        --soft-pink: #fce4ec;
+        --accent-color: #d81b60;
+        --text-color: #4a4a4a;
+        --glass-bg: rgba(255, 255, 255, 0.7);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background: linear-gradient(
+          135deg,
+          var(--soft-pink) 0%,
+          #ffffff 50%,
+          var(--primary-pink) 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        padding: 3rem;
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        max-width: 700px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      h1 {
+        font-family: "Great Vibes", cursive;
+        font-size: 4rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .modal-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Montserrat", sans-serif;
+        letter-spacing: 1px;
+      }
+
+      .yes-btn {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .no-btn {
+        background: #666;
+        color: white;
+      }
+
+      .modal-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 2rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 3rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Will you be my girlfriend?</h1>
+      <p>
+        I want to spend every birthday with you, laugh with you, and love you
+        for the rest of our lives. Please say yes.
+      </p>
+      <div class="modal-buttons">
+        <button class="modal-btn yes-btn" onclick="handleYesClick()">
+          Yes! ❤️
+        </button>
+        <button
+          class="modal-btn no-btn"
+          onclick="showResponse('I still care about you. 💕')"
+        >
+          No
+        </button>
+      </div>
+      <p id="response-text" style="margin-top: 2rem; font-size: 1.1rem"></p>
+    </div>
+
+    <script>
+      function showResponse(message) {
+        document.getElementById("response-text").textContent = message;
+      }
+
+      function handleYesClick() {
+        localStorage.setItem("playSurpriseOnReturn", "true");
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

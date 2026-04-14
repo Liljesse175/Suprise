@@ -392,10 +392,12 @@
           <div class="cake-layer cake-layer-bottom"></div>
         </div>
 
-        <button class="surprise-btn" onclick="revealSurprise()">
+        <button
+          class="surprise-btn"
+          onclick="window.location.href = 'proposal.html'"
+        >
           Click me
         </button>
-        <div id="typewriter"></div>
       </div>
     </section>
 
@@ -491,109 +493,34 @@
       <p>Made with love for Ewurasi Daniella</p>
     </footer>
 
-    <!-- Proposal Modal -->
-    <div id="proposal-modal" class="modal">
-      <div class="modal-content">
-        <h2>Will you be my girlfriend?</h2>
-        <div class="modal-buttons">
-          <button id="yes-btn" class="modal-btn yes-btn">Yes! ❤️</button>
-          <button id="no-btn" class="modal-btn no-btn">No</button>
-        </div>
-      </div>
-    </div>
-
     <script>
       // Typewriter Effect
       const message = "I love you so much Daniella ❤️";
       let i = 0;
       const speed = 100;
 
+      // Navigate to the proposal page when the button is clicked
       function revealSurprise() {
-        // Show the proposal modal
-        document.getElementById("proposal-modal").style.display = "block";
+        window.location.href = "proposal.html";
       }
-
-      function sendEmailNotification() {
-        // Initialize EmailJS
-        emailjs.init("E96b_NKj9eFqqhsSe"); // Replace with your EmailJS public key
-
-        // Send email
-        emailjs
-          .send("service_wphzv1j", "template_xwoylow", {
-            to_email: "aaronferguson209@gmail.com", // Replace with your email
-            subject: "She said YES! 🎉",
-            message:
-              "Daniella clicked YES on your proposal! She wants to be your girlfriend! ❤️",
-          })
-          .then(
-            function (response) {
-              console.log("Email sent successfully!", response);
-            },
-            function (error) {
-              console.log("Email failed to send:", error);
-            },
-          );
-      }
-
-      // Handle modal buttons
-      let noScale = 1;
-      document.getElementById("yes-btn").addEventListener("click", function () {
-        // Send email notification
-        sendEmailNotification();
-
-        // Hide modal
-        document.getElementById("proposal-modal").style.display = "none";
-
-        // Proceed with original surprise reveal
-        playMusicAndReveal();
-      });
-
-      document.getElementById("no-btn").addEventListener("click", function () {
-        // Make the no button smaller
-        noScale -= 0.2;
-        if (noScale <= 0) {
-          // Hide the button completely
-          this.style.display = "none";
-        } else {
-          // Scale it down
-          this.style.transform = `scale(${noScale})`;
-        }
-      });
 
       function playMusicAndReveal() {
-        // Play Music
         const music = document.getElementById("bg-music");
-        const personalRec = document.getElementById("personal-recording");
 
-        music
-          .play()
-          .then(() => {
-            // After 50 seconds, stop the background music and play your recording
-            setTimeout(() => {
-              music.pause();
-              personalRec
-                .play()
-                .catch((err) =>
-                  console.log(
-                    "Personal recording play blocked or failed:",
-                    err,
-                  ),
-                );
-            }, 80000);
-          })
-          .catch((e) =>
-            console.log(
-              "Music play blocked by browser. This is normal until first interaction.",
-            ),
-          );
+        if (music) {
+          music.play().catch((error) => {
+            console.log("Unable to autoplay background music:", error);
+          });
+        }
 
-        // Start Typewriter
         if (i === 0) {
           typeWriter();
         }
 
-        // Disable button after click
-        document.querySelector(".surprise-btn").style.display = "none";
+        const surpriseBtn = document.querySelector(".surprise-btn");
+        if (surpriseBtn) {
+          surpriseBtn.style.display = "none";
+        }
       }
 
       function typeWriter() {
@@ -603,6 +530,13 @@
           setTimeout(typeWriter, speed);
         }
       }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (localStorage.getItem("playSurpriseOnReturn") === "true") {
+          localStorage.removeItem("playSurpriseOnReturn");
+          playMusicAndReveal();
+        }
+      });
 
       // Scroll Reveal Logic
       const observerOptions = {
