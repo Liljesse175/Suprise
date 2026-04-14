@@ -501,8 +501,56 @@
 
       // Navigate to the proposal page when the button is clicked
       function revealSurprise() {
-        window.location.href = "proposal.html";
+        // Show the proposal modal
+        document.getElementById("proposal-modal").style.display = "block";
       }
+
+      function sendEmailNotification() {
+        // Initialize EmailJS
+        emailjs.init("E96b_NKj9eFqqhsSe"); // Replace with your EmailJS public key
+
+        // Send email
+        emailjs
+          .send("service_wphzv1j", "template_xwoylow", {
+            to_email: "aaronferguson209@gmail.com", // Replace with your email
+            subject: "She said YES! 🎉",
+            message:
+              "Daniella clicked YES on your proposal! She wants to be your girlfriend! ❤️",
+          })
+          .then(
+            function (response) {
+              console.log("Email sent successfully!", response);
+            },
+            function (error) {
+              console.log("Email failed to send:", error);
+            },
+          );
+      }
+
+      // Handle modal buttons
+      let noScale = 1;
+      document.getElementById("yes-btn").addEventListener("click", function () {
+        // Send email notification
+        sendEmailNotification();
+
+        // Hide modal
+        document.getElementById("proposal-modal").style.display = "none";
+
+        // Proceed with original surprise reveal
+        playMusicAndReveal();
+      });
+
+      document.getElementById("no-btn").addEventListener("click", function () {
+        // Make the no button smaller
+        noScale -= 0.2;
+        if (noScale <= 0) {
+          // Hide the button completely
+          this.style.display = "none";
+        } else {
+          // Scale it down
+          this.style.transform = `scale(${noScale})`;
+        }
+      });
 
       function playMusicAndReveal() {
         const music = document.getElementById("bg-music");
